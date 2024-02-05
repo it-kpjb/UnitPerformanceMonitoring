@@ -25,7 +25,7 @@ class RoleController extends Controller
      */
     public function index(): View
     {
-        return view('roles.index', [
+        return view('layouts.admin.roles.index', [
             'roles' => Role::orderBy('id','DESC')->paginate(3)
         ]);
     }
@@ -35,7 +35,7 @@ class RoleController extends Controller
      */
     public function create(): View
     {
-        return view('roles.create', [
+        return view('layouts.admin.roles.create', [
             'permissions' => Permission::get()
         ]);
     }
@@ -64,7 +64,7 @@ class RoleController extends Controller
             ->where("role_id",$role->id)
             ->select('name')
             ->get();
-        return view('roles.show', [
+        return view('layouts.admin.roles.show', [
             'role' => $role,
             'rolePermissions' => $rolePermissions
         ]);
@@ -83,7 +83,7 @@ class RoleController extends Controller
             ->pluck('permission_id')
             ->all();
 
-        return view('roles.edit', [
+        return view('layouts.admin.roles.edit', [
             'role' => $role,
             'permissions' => Permission::get(),
             'rolePermissions' => $rolePermissions
@@ -103,7 +103,7 @@ class RoleController extends Controller
 
         $role->syncPermissions($permissions);    
         
-        return redirect()->back()
+        return redirect()->route('roles.index')
                 ->withSuccess('Role is updated successfully.');
     }
 

@@ -29,7 +29,7 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        return view('users.index', [
+        return view('layouts.admin.users.index', [
             'users' => User::latest('id')->paginate(3)
         ]);
     }
@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        return view('users.create', [
+        return view('layouts.admin.users.create', [
             'roles' => Role::pluck('name')->all()
         ]);
     }
@@ -64,7 +64,7 @@ class UserController extends Controller
      */
     public function show(User $user): View
     {
-        return view('users.show', [
+        return view('layouts.admin.users.show', [
             'user' => $user
         ]);
     }
@@ -81,7 +81,7 @@ class UserController extends Controller
             }
         }
 
-        return view('users.edit', [
+        return view('layouts.admin.users.edit', [
             'user' => $user,
             'roles' => Role::pluck('name')->all(),
             'userRoles' => $user->roles->pluck('name')->all()
@@ -105,7 +105,7 @@ class UserController extends Controller
 
         $user->syncRoles($request->roles);
 
-        return redirect()->back()
+        return redirect()->route('users.index')
                 ->withSuccess('User is updated successfully.');
     }
 
