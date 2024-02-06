@@ -15,6 +15,14 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
         run: composer update --ignore-platform-reqs
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14" # Ganti versi Node.js sesuai kebutuhan proyek Anda
+
+      - name: Install npm Dependencies
+        run: npm install && npm run build # Sesuaikan dengan perintah yang sesuai untuk proyek Anda
+
       - name: Generate key
         run: php artisan key:generate
       - name: Generate storage link
