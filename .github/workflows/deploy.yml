@@ -35,4 +35,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /unitmonitoring
+          server-dir: /home/kpjb/unitmonitoring.kpjb.co.id/unitmonitoring
