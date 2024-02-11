@@ -85,7 +85,7 @@
     <script src='{{asset("js/jquery.sparkline.min.js")}}'></script>
     <script src='{{asset("js/apexcharts.min.js")}}'></script>
     <script src='{{asset("js/apexcharts.custom.js")}}'></script>
-    <script src='{{asset("js/apps.js")}}'></script>
+    <!-- <script src='{{asset("js/apps.js")}}'></script> -->
 
     <script>
         $(document).ready(function () {
