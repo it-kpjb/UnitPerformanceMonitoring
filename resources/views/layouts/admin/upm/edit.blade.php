@@ -10,10 +10,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
-                            <form method="POST" action="{{ route('docsMon.update', $doc->id) }}"  enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                <!-- @method('PUT') -->
-                                
+                            <form method="POST" action="{{ route('docsMon.update', encrypt($doc->id)) }}"  enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group mb-3">
                                     <label for="dm_number">{{ __('DM Number') }}</label>
                                     <input type="text" name="dm_number" class="form-control" value="{{ old ('dm_number', $doc->dm_number) }}" required>
