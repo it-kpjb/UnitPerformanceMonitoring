@@ -23,8 +23,8 @@ jobs:
       - name: Install npm Dependencies
         run: npm install && npm run build # Sesuaikan dengan perintah yang sesuai untuk proyek Anda
 
-      - name: Generate key
-        run: php artisan key:generate
+      # - name: Generate key
+      #   run: php artisan key:generate
       - name: Generate storage link
         run: php artisan storage:link
       - name: Directory Permissions
