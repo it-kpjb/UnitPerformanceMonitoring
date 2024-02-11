@@ -161,9 +161,10 @@ class DocUpmController extends Controller
         <span class="fe fe-alert-octagon fe-16 mr-2"></span> Update Succesfully </div>');
     }
 
-    public function destroy($id)
+    public function destroy($encryptedId)
     {
         // Mengambil dokumen berdasarkan ID
+        $id = Crypt::decrypt($encryptedId);
         $doc = DocUpm::findOrFail($id);
 
         // Menghapus file-file terlampir yang terkait dengan dokumen
