@@ -98,7 +98,7 @@
                                             </thead>
                                             <tbody>    
                                             @foreach($docs as $doc)
-                                                @if ($doc->status->name == 'Uploaded')
+                                                @if ($doc->status->name == 'Approved')
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $doc->dm_number }}</td>
