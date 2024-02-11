@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocUpm extends Model
 {
-    protected $table = 'doc_upm';
+    // protected $table = 'doc_upm';
     protected $fillable = [
         'dm_number','subject','user', 'tgldoc', 'status_id',  'attachment_path',
     ];
