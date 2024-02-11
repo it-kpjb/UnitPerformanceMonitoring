@@ -87,7 +87,7 @@
                                 <span class="text-muted sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="/docsMon/edit/{{encrypt($doc->id)}}">Edit</a>
+                                <a class="dropdown-item" href="{{ route('docsMon.edit', encrypt($doc->id)) }}">Edit</a>
                                 <form method="POST" action="{{ route('docsMon.destroy', encrypt($doc->id)) }}" >
                                   @csrf
                                       @method('DELETE')
