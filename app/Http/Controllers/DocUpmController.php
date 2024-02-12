@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Pagination\Paginator;
 use App\Notifications\DocumentCreated;
+use Illuminate\Support\Facades\Crypt;
 
 class DocUpmController extends Controller
 {
@@ -102,15 +103,16 @@ class DocUpmController extends Controller
         return view('docsMon.show', compact('doc'));
     }
 
-    public function edit($id)
+    public function edit($encryptedId)
     {
         $statuses = Status::all();
+        $id = Crypt::decrypt($encryptedId);
         // Logika untuk mengambil data dengan ID tertentu
         $doc = DocUpm::find($id);
         return view('layouts.admin.upm.edit', compact('doc', 'statuses'));
     }
 
-    public function update(Request $request, DocUpm $doc, $id)
+    public function update(Request $request, DocUpm $doc, $encryptedId)
     {
         
         // Validasi input
@@ -124,6 +126,7 @@ class DocUpmController extends Controller
         ]);
         
         // Retrieve the record from the database
+        $id = Crypt::decrypt($encryptedId);
         $doc = DocUpm::findOrFail($id);
 
         // Update the fields with new values
@@ -158,9 +161,10 @@ class DocUpmController extends Controller
         <span class="fe fe-alert-octagon fe-16 mr-2"></span> Update Succesfully </div>');
     }
 
-    public function destroy($id)
+    public function destroy($encryptedId)
     {
         // Mengambil dokumen berdasarkan ID
+        $id = Crypt::decrypt($encryptedId);
         $doc = DocUpm::findOrFail($id);
 
         // Menghapus file-file terlampir yang terkait dengan dokumen

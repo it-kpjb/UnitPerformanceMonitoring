@@ -9,7 +9,7 @@
                 <!-- Striped rows -->
                 <div class="col-md-12 my-4">
                   <h2 class="h4 mb-1">Unit Permormance Monitoring</h2>
-                  <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At est delectus minus tempore quidem, natus earum suscipit autem magnam esse et blanditiis id, fuga molestiae voluptas quae eaque. Odio, corrupti.</p>
+                  <!-- <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At est delectus minus tempore quidem, natus earum suscipit autem magnam esse et blanditiis id, fuga molestiae voluptas quae eaque. Odio, corrupti.</p> -->
                   <div class="card shadow">
                     <div class="card-body">
                       <div class="toolbar row mb-3">
@@ -87,8 +87,8 @@
                                 <span class="text-muted sr-only">Action</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="/docsMon/edit/{{$doc->id}}">Edit</a>
-                                <form method="POST" action="{{ route('docsMon.destroy', $doc->id) }}" >
+                                <a class="dropdown-item" href="{{ route('docsMon.edit', encrypt($doc->id)) }}">Edit</a>
+                                <form method="POST" action="{{ route('docsMon.destroy', encrypt($doc->id)) }}" >
                                   @csrf
                                       @method('DELETE')
                                       <button class="dropdown-item" type="submit" onclick="return confirm('Do You Want Delete?')">Remove</button>
