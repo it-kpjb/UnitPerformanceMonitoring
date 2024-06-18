@@ -25,7 +25,8 @@ use App\Http\Controllers\PermissionController;
 |
 */
 
-Route::get('/', [App\Http\Controllers\PublicDocsMonController::class, 'index'])->name('index');
+// Route::get('/', [App\Http\Controllers\PublicDocsMonController::class, 'index'])->name('index');
+Route::get('/', [PublicDocsMonController::class, 'index'])->name('public.index');
 
 
 Auth::routes();

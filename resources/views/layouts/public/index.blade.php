@@ -74,16 +74,20 @@
                                 <!-- <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At est delectus minus tempore quidem, natus earum suscipit autem magnam esse et blanditiis id, fuga molestiae voluptas quae eaque. Odio, corrupti.</p> -->
                                 <div class="card shadow">
                                     <div class="card-body">
-                                    <div class="toolbar row mb-3">
-                                        <div class="col">
-                                                <form class="form-inline" action="{{ route('docsMon.index') }}" method="GET">
-                                                    <div class="form-row mb-2">
-                                                        <input type="text" class="form-control" name="search" placeholder="Search...">
-                                                        <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fe fe-search fe-16 mr-2"></span>Search</button>
-                                                    </div>
-                                                </form>
+                                    <div class="form-row">
+                                        <form class="form-inline">
+                                            <div class="form-row">
+                                            <div class="mb-2">
+                                            <form action="{{ route('public.index') }}" method="GET">
+                                                <input type="text" class="form-control" name="search" placeholder="Search...">
+                                                <button type="submit" class="btn btn-sm  btn-outline-primary"><span class="fe fe-search fe-16 mr-2"></span>Search</button>
+                                            </form>
                                             </div>
-                                        </div>
+
+                                            
+                                            </div>
+                                        </form>
+
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr role="row">
@@ -119,21 +123,7 @@
                                             @endforeach
                                             </tbody>
                                         </table>
-                                        <nav aria-label="Table Paging" class="mb-0 text-muted">
-                                            <ul class="pagination justify-content-end">
-                                                <li class="page-item {{ $currentPage == 1 ? 'disabled' : '' }}">
-                                                    <a class="page-link" href="{{ $currentPage == 1 ? '#' : route('docsMon.index', ['page' => $currentPage - 1]) }}">Previous</a>
-                                                </li>
-                                                @for ($i = 1; $i <= $totalPages; $i++)
-                                                    <li class="page-item {{ $i == $currentPage ? 'active' : '' }}">
-                                                        <a class="page-link" href="{{ route('docsMon.index', ['page' => $i]) }}">{{ $i }}</a>
-                                                    </li>
-                                                @endfor
-                                                <li class="page-item {{ $currentPage == $totalPages ? 'disabled' : '' }}">
-                                                    <a class="page-link" href="{{ $currentPage == $totalPages ? '#' : route('docsMon.index', ['page' => $currentPage + 1]) }}">Next</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                        
                                     </div>
                                 </div>
                             </div>

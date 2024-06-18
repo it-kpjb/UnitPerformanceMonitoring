@@ -13,22 +13,23 @@ jobs:
       - uses: actions/setup-node@master
       # - name: Copy .env
       #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      # - name: Install Dependencies
+      #   run: composer update --ignore-platform-reqs
+      # - name: Set up Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "14" # Ganti versi Node.js sesuai kebutuhan proyek Anda
       - name: Install Dependencies
-        run: composer update --ignore-platform-reqs
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14" # Ganti versi Node.js sesuai kebutuhan proyek Anda
-
+        run: composer install --no-dev --optimize-autoloader
       - name: Install npm Dependencies
-        run: npm install && npm run build # Sesuaikan dengan perintah yang sesuai untuk proyek Anda
+        run: npm install && npm run production # Sesuaikan dengan perintah yang sesuai untuk proyek Anda
 
       # - name: Generate key
       #   run: php artisan key:generate
-      - name: Generate storage link
-        run: php artisan storage:link
-      - name: Directory Permissions
-        run: chmod -R 777 storage bootstrap/cache
+      # - name: Generate storage link
+      #   run: php artisan storage:link
+      # - name: Directory Permissions
+      #   run: chmod -R 777 storage bootstrap/cache
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
