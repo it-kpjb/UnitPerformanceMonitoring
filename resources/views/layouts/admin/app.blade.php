@@ -55,6 +55,7 @@
     </div>
 
     <!-- General JS Scripts -->
+    @yield('scripts')
     <script src='{{asset("js/jquery.min.js")}}'></script>
     <script src='{{asset("js/popper.min.js")}}'></script>
     <script src='{{asset("js/moment.min.js")}}'></script>
@@ -85,7 +86,6 @@
     <script src='{{asset("js/jquery.sparkline.min.js")}}'></script>
     <script src='{{asset("js/apexcharts.min.js")}}'></script>
     <script src='{{asset("js/apexcharts.custom.js")}}'></script>
-    <script src='{{asset("js/apps.js")}}'></script>
 
     <script>
         $(document).ready(function () {
@@ -289,6 +289,7 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+    
     
 
 </body>

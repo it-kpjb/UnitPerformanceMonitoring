@@ -10,7 +10,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
-                    <form action="{{ route('docsMon.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('docsMon.store') }}" method="POST" enctype="multipart/form-data" id="documentForm">
                       @csrf
                       <div class="form-group mb-3">
                         <label for="dm_number">DM Number</label>
@@ -42,19 +42,45 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <!-- <div class="form-group">
+                              <label for="linkInput">{{ __('Link Cloud') }}</label>
+                              <input type="url" name="link" id="linkInput" class="form-control" placeholder="Masukkan link di sini" required>
+                            </div> -->
+
                             <div class="form-group">
                               <label for="files">{{ __('Files') }}</label>
                               <input type="file" name="files[]" class="form-control-file" accept=".pdf,.doc,.docx" multiple required>
                             </div>
                             
+
+                            
                             <div class="form-group">
                               <a href="{{ route('docsMon.index')}}" type="button" class="btn btn-danger">{{ __('Back') }}</a>
-                              <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-                            </div>
+                              <button id="submitBtn" type="submit" class="btn btn-primary" style="position: relative;">
+                                  <span id="loadingIndicator" style="display: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+                                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...
+                                  </span>
+                                  {{ __('Submit') }}
+                              </button>
+                          </div>
                     </form>
                     </div> <!-- /.col -->
                     </div>
                   </div>
                 </div>
               </div> <!-- / .card -->
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Menangani klik pada tombol submit
+        document.getElementById('documentForm').addEventListener('submit', function(event) {
+            // Tampilkan indikator loading
+            document.getElementById('loadingIndicator').style.display = 'inline-block';
+            // Menonaktifkan tombol submit
+            document.getElementById('submitBtn').disabled = true;
+        });
+    });
+</script>
 @endsection
