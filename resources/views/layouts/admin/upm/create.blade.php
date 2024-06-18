@@ -42,10 +42,17 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <!-- <div class="form-group">
+                              <label for="linkInput">{{ __('Link Cloud') }}</label>
+                              <input type="url" name="link" id="linkInput" class="form-control" placeholder="Masukkan link di sini" required>
+                            </div> -->
+
                             <div class="form-group">
                               <label for="files">{{ __('Files') }}</label>
                               <input type="file" name="files[]" class="form-control-file" accept=".pdf,.doc,.docx" multiple required>
                             </div>
+                            
+
                             
                             <div class="form-group">
                               <a href="{{ route('docsMon.index')}}" type="button" class="btn btn-danger">{{ __('Back') }}</a>
