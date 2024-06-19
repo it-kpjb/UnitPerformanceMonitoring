@@ -21,8 +21,8 @@ jobs:
       #     node-version: "14" # Ganti versi Node.js sesuai kebutuhan proyek Anda
       - name: Install Dependencies
         run: composer install --no-dev --optimize-autoloader
-      - name: Install npm Dependencies
-        run: npm install && npm run production # Sesuaikan dengan perintah yang sesuai untuk proyek Anda
+      #- name: Install npm Dependencies
+      #  run: npm install && npm run production # Sesuaikan dengan perintah yang sesuai untuk proyek Anda
 
       # - name: Generate key
       #   run: php artisan key:generate
