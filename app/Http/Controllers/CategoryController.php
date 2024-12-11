@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -64,7 +65,7 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'desc' => 'required|string',
+            'slug' => 'required|unique:categories,slug,' . $category->id,
         ]);
 
         $category->update($request->all());
@@ -82,5 +83,15 @@ class CategoryController extends Controller
 
         return redirect()->route('category.index')->with('success', '<div class="alert alert-danger" role="alert" >
         <span class="fe fe-minus-circle fe-16 mr-2"></span> Delete Successfully! </div>');
+    }
+
+    public function checkSlug(Request $request)
+    {
+        if (!$request->has('name') || empty($request->name)) {
+            return response()->json(['error' => 'Name is required'], 400);
+        }
+        $slug = SlugService::createSlug(Category::class, 'slug', $request->name);
+
+        return response()->json(['slug' => $slug]);
     }
 }

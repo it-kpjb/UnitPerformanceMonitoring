@@ -10,7 +10,9 @@ class Status extends Model
 {
     protected $table = 'status';
     protected $fillable = [
-        'name', 'desc',
+        'name',
+        'desc',
+        'public_view'
     ];
 
     // Definisi relasi dengan DocUpm

@@ -11,9 +11,8 @@ use App\Http\Controllers\DocUpmController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CategoryController;
-
-
-
+use App\Http\Controllers\DocumentFilController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +27,7 @@ use App\Http\Controllers\CategoryController;
 
 // Route::get('/', [App\Http\Controllers\PublicDocsMonController::class, 'index'])->name('index');
 Route::get('/', [PublicDocsMonController::class, 'index'])->name('public.index');
+Route::get('/document/filter/{slug}', [PublicDocsMonController::class, 'showFilter'])->name('public.showFilter');
 
 
 Auth::routes();
@@ -39,18 +39,25 @@ Route::resources([
     'users' => UserController::class,
     'products' => ProductController::class,
 ]);
-    Route::resource('permissions', PermissionController::class);
+Route::resource('permissions', PermissionController::class);
 
-    Route::resource('status', StatusController::class);
-    Route::resource('category', CategoryController::class);
-    // Route::get('/home', function () {
-    //     return view('layouts.admin.dashboard.index');
-    // });
-    Route::get('/home', [DashboardController::class,'dashboard']);
+Route::resource('status', StatusController::class);
+Route::resource('category', CategoryController::class);
+// Route::get('/home', function () {
+//     return view('layouts.admin.dashboard.index');
+// });
+Route::get('/home', [DashboardController::class, 'dashboard']);
+
+//route slug
+Route::get('/categori/checkSlug', [CategoryController::class, 'checkSlug']);
 
 
-    // Router DocsMon
-    Route::resource('docsMon', DocUpmController::class);
-    Route::get('/docsMon/edit/{id}', [DocUpmController::class, 'edit']);
-    Route::post('/docsMon/update/{id}', [DocUpmController::class, 'update'])->name(('docsMon.update'));
-    Route::put('/docsMon/{id}/updateStatus', [DocUpmController::class, 'updateStatus'])->name('docsMon.updateStatus');
+// Router DocsMon
+Route::resource('docsMon', DocUpmController::class);
+Route::get('/docsMon/edit/{id}', [DocUpmController::class, 'edit']);
+Route::post('/docsMon/update/{id}', [DocUpmController::class, 'update'])->name(('docsMon.update'));
+Route::put('/docsMon/{id}/updateStatus', [DocUpmController::class, 'updateStatus'])->name('docsMon.updateStatus');
+
+
+//route filter category
+Route::get('/doscsMon/{slug}', [DocumentFilController::class, 'index'])->name('doc-filter');
