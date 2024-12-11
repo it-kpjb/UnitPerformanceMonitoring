@@ -10,6 +10,7 @@ use App\Http\Controllers\PublicDocsMonController;
 use App\Http\Controllers\DocUpmController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\CategoryController;
 
 
 
@@ -41,6 +42,7 @@ Route::resources([
     Route::resource('permissions', PermissionController::class);
 
     Route::resource('status', StatusController::class);
+    Route::resource('category', CategoryController::class);
     // Route::get('/home', function () {
     //     return view('layouts.admin.dashboard.index');
     // });
@@ -52,4 +54,3 @@ Route::resources([
     Route::get('/docsMon/edit/{id}', [DocUpmController::class, 'edit']);
     Route::post('/docsMon/update/{id}', [DocUpmController::class, 'update'])->name(('docsMon.update'));
     Route::put('/docsMon/{id}/updateStatus', [DocUpmController::class, 'updateStatus'])->name('docsMon.updateStatus');
-    

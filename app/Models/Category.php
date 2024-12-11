@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relation\HasMany;
+use App\Models\DocUpm;
 
-class Status extends Model
+class Category extends Model
 {
-    protected $table = 'status';
+    protected $table = 'categories';
     protected $fillable = [
         'name', 'desc',
     ];
