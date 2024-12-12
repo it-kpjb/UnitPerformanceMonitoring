@@ -46,6 +46,7 @@
                                 <th>#</th>
                                 <th>DM Number</th>
                                 <th>Subject</th>
+                                <th>Category</th>
                                 <th>User</th>
                                 <th>Date</th>
                                 <th>Status Doc</th>
@@ -59,6 +60,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $doc->dm_number }}</td>
                                     <td>{{ $doc->subject }}</td>
+                                    <td>{{ $doc->category->name }}</td>
                                     <td>{{ $doc->user }}</td>
                                     <td>{{ $doc->tgldoc }}</td>
                                     <td>

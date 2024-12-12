@@ -149,6 +149,7 @@
                                             </table>
 
                                         </div>
+                                        {{ $docs->links() }}
                                     </div>
                                 </div>
                             </div>
@@ -188,6 +189,10 @@
             </script>
         </div>
     </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <p class="text-muted mb-0">Copyright &copy; 2024 <a href="https://nex-gen.id">Nexgen</a></p>
+        </div>
+    </footer>
 </body>
-
 </html>

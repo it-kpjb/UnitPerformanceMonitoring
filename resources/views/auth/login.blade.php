@@ -44,11 +44,11 @@
                 {{ __('Forgot Your Password?') }}
             </a>
            @endif
-          <p class="mt-5 mb-3 text-muted">KPJBIT © 2024</p>
+          <p class="mt-5 mb-3 text-muted"><a href="https://nex-gen.id">Nexgen</a> © 2024</p>
         </form>
       </div>
     </div>
-    
+
 <!-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

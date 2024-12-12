@@ -126,6 +126,7 @@ class DocUpmController extends Controller
             'user' => 'required',
             'tgldoc' => 'required|date_format:m/d/Y',
             'status_id' => 'required',
+            'category_id' => 'required',
             'files.*' => 'nullable|mimes:pdf,doc,docx',
             'category_id' => 'required',
         ]);
@@ -140,6 +141,7 @@ class DocUpmController extends Controller
         $doc->user = $request->input('user');
         $doc->tgldoc = \Carbon\Carbon::createFromFormat('m/d/Y', $validatedData['tgldoc'])->format('Y-m-d');
         $doc->status_id = $request->input('status_id');
+        $doc->category_id = $request->input('category_id');
 
         // Perbarui data
         $doc->update();
@@ -159,8 +161,6 @@ class DocUpmController extends Controller
                 $doc->files()->create(['attachment_path' => $fileName]);
             }
         }
-
-
 
         return redirect()->back()->with('success', '<div class="alert alert-success" role="alert">
         <span class="fe fe-alert-octagon fe-16 mr-2"></span> Update Succesfully </div>');

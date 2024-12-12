@@ -37,6 +37,7 @@ class PublicDocsMonController extends Controller
     // }
     public function index(Request $request)
     {
+
         $category = Category::all();
         $data['title'] = 'Unit Performance Monitoring';
         $search = $request->input('search');
@@ -61,9 +62,11 @@ class PublicDocsMonController extends Controller
 
     public function showFilter(Request $request, $slug)
     {
+
+
         // dd($slug);
         // Ambil kategori berdasarkan slug
-        // 
+        //
         $category = Category::all();
         // Pastikan kategori ditemukan, jika tidak tampilkan 404
         // if (!$category) {
@@ -73,12 +76,19 @@ class PublicDocsMonController extends Controller
         $data['title'] = 'Unit Performance Monitoring';
         $search = $request->input('search');
 
-        // Retrieve documents where public_view is 1 from the Status table and filter by search terms and category
-        $docs = DocUpm::join('status', 'doc_upms.status_id', '=', 'status.id')  // Join dengan Status table
-            ->where('status.public_view', 1)  // Filter berdasarkan status yang public
-            ->whereHas('category', function ($query) use ($slug) {  // Filter berdasarkan kategori dengan slug
-                $query->where('slug', $slug);
-            })
+         // Retrieve documents where public_view is 1 from the Status table and filter by search terms and category
+        $docs = DocUpm::join('status', 'doc_upms.status_id', '=', 'status.id')
+        ->where('status.public_view', 1)
+        ->whereHas('category', function ($query) use ($slug) {
+            $query->where('slug', $slug);
+        })
+        ->when($search, function ($query) use ($search) {  // Apply search filter if search term exists
+            $query->where(function ($q) use ($search) {
+                $q->where('dm_number', 'like', '%' . $search . '%')
+                    ->orWhere('subject', 'like', '%' . $search . '%')
+                    ->orWhere('user', 'like', '%' . $search . '%');
+            });
+        })
             ->orderBy('doc_upms.created_at', 'desc')
             ->select('doc_upms.*')  // Ambil semua kolom dari tabel doc_upms
             ->paginate(10);  // Pagination
