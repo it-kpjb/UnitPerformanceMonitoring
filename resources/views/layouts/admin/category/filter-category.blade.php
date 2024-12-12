@@ -16,9 +16,9 @@
                             <form class="form-inline">
                                 <div class="form-row">
                                     <!-- <div class="form-group col-auto">
-                                    <label for="search" class="sr-only">Search</label>
-                                    <input type="text" class="form-control" id="search" value="" placeholder="Search">
-                                  </div> -->
+                                                            <label for="search" class="sr-only">Search</label>
+                                                            <input type="text" class="form-control" id="search" value="" placeholder="Search">
+                                                          </div> -->
                                     <div class="mb-2">
                                         <form action="{{ route('docsMon.index') }}" method="GET">
                                             <input type="text" class="form-control" name="search"
@@ -46,7 +46,6 @@
                                 <th>#</th>
                                 <th>DM Number</th>
                                 <th>Subject</th>
-                                <th>Category</th>
                                 <th>User</th>
                                 <th>Date</th>
                                 <th>Status Doc</th>
@@ -60,11 +59,15 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $doc->dm_number }}</td>
                                     <td>{{ $doc->subject }}</td>
-                                    <td>{{ $doc->category->name }}</td>
                                     <td>{{ $doc->user }}</td>
                                     <td>{{ $doc->tgldoc }}</td>
                                     <td>
-                                        <form method="POST"
+                                        @if ($doc->status->name == 'Approved')
+                                            <span class="badge badge-success text-white">{{ $doc->status->name }}</span>
+                                        @else
+                                            <span class="badge badge-secondary text-white">{{ $doc->status->name }}</span>
+                                        @endif
+                                        {{-- <form method="POST"
                                             action="{{ route('docsMon.updateStatus', ['id' => $doc->id]) }}">
                                             @csrf
                                             @method('PUT') <!-- Atau bisa menggunakan @method('PUT') -->
@@ -79,7 +82,7 @@
                                             </select>
 
                                             <button type="submit" class="btn btn-sm btn-secondary">Update Status</button>
-                                        </form>
+                                        </form> --}}
                                     </td>
                                     <td>
                                         @foreach ($doc->files as $file)
