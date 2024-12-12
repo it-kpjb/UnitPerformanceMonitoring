@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -18,20 +19,20 @@ class DocUpmController extends Controller
 {
     public function __construct()
     {
-       $this->middleware('auth');
-       $this->middleware('permission:create-docsMon|edit-docsMon|delete-docsMon', ['only' => ['index','show']]);
-       $this->middleware('permission:create-docsMon', ['only' => ['create','store']]);
-       $this->middleware('permission:edit-docsMon', ['only' => ['edit','update']]);
-       $this->middleware('permission:delete-docsMon', ['only' => ['destroy']]);
+        $this->middleware('auth');
+        $this->middleware('permission:create-docsMon|edit-docsMon|delete-docsMon', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create-docsMon', ['only' => ['create', 'store']]);
+        $this->middleware('permission:edit-docsMon', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-docsMon', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {
         $search = $request->input('search');
         // Retrieve documents paginated and ordered by creation date descending
         $docs = DocUpm::orderBy('created_at', 'desc')
-            ->where('dm_number', 'like', '%'.$search.'%')
-            ->orWhere('subject', 'like', '%'.$search.'%')
-            ->orWhere('user', 'like', '%'.$search.'%')
+            ->where('dm_number', 'like', '%' . $search . '%')
+            ->orWhere('subject', 'like', '%' . $search . '%')
+            ->orWhere('user', 'like', '%' . $search . '%')
             ->paginate(10);
 
         // Retrieve all statuses
@@ -39,17 +40,18 @@ class DocUpmController extends Controller
 
         // Mengambil nomor halaman saat ini
         $currentPage = $docs->currentPage();
-        
+
         // Mengambil total halaman
         $totalPages = $docs->lastPage();
-        
-        return view('layouts.admin.upm.index', compact('docs', 'statuses','currentPage', 'totalPages',));
+
+        return view('layouts.admin.upm.index', compact('docs', 'statuses', 'currentPage', 'totalPages',));
     }
 
     public function create()
     {
         $statuses = Status::all();
-        return view('layouts.admin.upm.create', compact('statuses'));
+        $categories = Category::all();
+        return view('layouts.admin.upm.create', compact('statuses', 'categories'));
     }
 
     public function store(Request $request)
@@ -62,6 +64,7 @@ class DocUpmController extends Controller
             'tgldoc' => 'required|date_format:m/d/Y',
             'status_id' => 'required',
             'files.*' => 'required|mimes:pdf,doc,docx',
+            'category_id' => 'required',
         ]);
 
         // // Konversi format tanggal ke 'YYYY-MM-DD'
@@ -109,12 +112,13 @@ class DocUpmController extends Controller
         $id = Crypt::decrypt($encryptedId);
         // Logika untuk mengambil data dengan ID tertentu
         $doc = DocUpm::find($id);
-        return view('layouts.admin.upm.edit', compact('doc', 'statuses'));
+        $categories = Category::all();
+        return view('layouts.admin.upm.edit', compact('doc', 'statuses', 'categories'));
     }
 
     public function update(Request $request, DocUpm $doc, $encryptedId)
     {
-        
+
         // Validasi input
         $validatedData = $request->validate([
             'dm_number' => 'required',
@@ -122,9 +126,11 @@ class DocUpmController extends Controller
             'user' => 'required',
             'tgldoc' => 'required|date_format:m/d/Y',
             'status_id' => 'required',
+            'category_id' => 'required',
             'files.*' => 'nullable|mimes:pdf,doc,docx',
+            'category_id' => 'required',
         ]);
-        
+
         // Retrieve the record from the database
         $id = Crypt::decrypt($encryptedId);
         $doc = DocUpm::findOrFail($id);
@@ -135,6 +141,7 @@ class DocUpmController extends Controller
         $doc->user = $request->input('user');
         $doc->tgldoc = \Carbon\Carbon::createFromFormat('m/d/Y', $validatedData['tgldoc'])->format('Y-m-d');
         $doc->status_id = $request->input('status_id');
+        $doc->category_id = $request->input('category_id');
 
         // Perbarui data
         $doc->update();
@@ -155,9 +162,7 @@ class DocUpmController extends Controller
             }
         }
 
-
-
-        return redirect()->route('docsMon.index')->with('success', '<div class="alert alert-success" role="alert">
+        return redirect()->back()->with('success', '<div class="alert alert-success" role="alert">
         <span class="fe fe-alert-octagon fe-16 mr-2"></span> Update Succesfully </div>');
     }
 
@@ -180,7 +185,6 @@ class DocUpmController extends Controller
 
         return redirect()->route('docsMon.index')->with('success', '<div class="alert alert-danger" role="alert" >
         <span class="fe fe-minus-circle fe-16 mr-2"></span> Delete Successfully! </div>');
-
     }
 
     public function updateStatus(Request $request, $id)
