@@ -7,7 +7,7 @@ cd ~/home/kpjb/unitmonitoring.kpjb.co.id/unitmonitoring
 git pull origin main
 
 # Install/update composer dependencies
-composer install --no-interaction
+composer update --no-interaction
 
 # Run database migrations
 php artisan migrate --force
