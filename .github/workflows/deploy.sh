@@ -4,7 +4,7 @@
 cd ~/home/kpjb/unitmonitoring.kpjb.co.id/unitmonitoring
 
 # Pull the latest changes from the git repository
-git pull origin main
+git pull origin staging
 
 # Install/update composer dependencies
 #composer install --no-interaction
