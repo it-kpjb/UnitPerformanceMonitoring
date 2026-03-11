@@ -5,194 +5,395 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Unit Performance Monitoring">
+    <meta name="author" content="Nexgen">
     <link rel="icon" href="favicon.ico">
-
-    <!-- Simple bar CSS -->
-    <link rel="stylesheet" href="{{ asset('css/simplebar.css') }}">
+    <title>Unit Performance Monitoring</title>
 
     <!-- Fonts CSS -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <!-- Icons CSS -->
-    <link rel="stylesheet" href="{{ asset('css/feather.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/uppy.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/jquery.steps.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/quill.snow.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css') }}">
-    <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="{{ asset('css/daterangepicker.css') }}">
-    <!-- App CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app-light.css') }}" id="lightTheme">
-    <link rel="stylesheet" href="{{ asset('css/app-dark.css') }}" id="darkTheme" disabled>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            padding: 4rem 0 5rem 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.15);
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: #4b5563 !important;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 0.5rem 1rem !important;
+            border-radius: 0.5rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #0d6efd !important;
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+
+        /* Content Container */
+        .main-container {
+            margin-top: -3.5rem;
+            z-index: 10;
+            position: relative;
+            flex: 1;
+        }
+
+        /* Card styles */
+        .card-modern {
+            border: none;
+            border-radius: 1rem;
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        /* Search styling */
+        .search-container {
+            background: white;
+            padding: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .search-input {
+            border-radius: 50rem 0 0 50rem;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #e5e7eb;
+            background-color: #f9fafb;
+            box-shadow: none;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            background-color: #fff;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        }
+
+        .btn-search {
+            border-radius: 0 50rem 50rem 0;
+            padding: 0.75rem 1.75rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Table styles */
+        .table-modern {
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+
+        .table-modern th {
+            border-top: none;
+            border-bottom-width: 1px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            color: #6b7280;
+            padding: 1rem 1.5rem;
+            background: #fdfdfd;
+        }
+
+        .table-modern td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+            color: #374151;
+        }
+
+        .table-modern tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        .table-modern tbody tr:hover {
+            background-color: #f9fafb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .badge-status {
+            font-weight: 500;
+            padding: 0.5em 0.8em;
+            border-radius: 8px;
+            letter-spacing: 0.3px;
+        }
+        
+        .file-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            font-weight: 500;
+            color: #0d6efd;
+            background: #f0f7ff;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .file-link:hover {
+            background: #0d6efd;
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            color: #0d6efd;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .pagination-container {
+            padding: 1rem 1.5rem;
+            background: #fdfdfd;
+            border-top: 1px solid #f3f4f6;
+        }
+        
+        .pagination {
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 
-<body class="vertical light">
-    <div class="wrapper">
-        <div class="main-wrapper">
-
-            <div class="bg-body-tertiary py-5">
-                <div class="bg-body-tertiary text-center ">
-                    <h3 class="" href="#">Unit Perfomence Monitoring</h3>
-                </div>
-
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-
-                        <div class="collapse navbar-collapse" id="navbarText">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link text-black" href="/">All</a>
-                                </li>
-                                @foreach ($category as $item)
-                                    <li class="nav-item">
-                                        <a class="nav-link text-black" href="{{ route('public.showFilter', ['slug' => $item->slug]) }}">{{ $item->name }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <span class="navbar-text">
-                                <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
-                                    <!-- <i class="fe fe-menu navbar-toggler-icon"></i> -->
-                                </button>
-
-                                <ul class="nav">
-
-
-                                    @if (Route::has('login'))
-                                        @auth
-                                            <a href="{{ url('/docsMon') }}" class="nav-item">Home</a>
-                                        @else
-                                            <a href="{{ route('login') }}" class="btn btn-primary">Log in</a>
-                                        @endauth
-                                    @endif
-                                    </li>
-                                </ul>
-                            </span>
-                        </div>
-                    </div>
-                </nav>
-
-            </div>
-
-            <main role="main">
-                <div class="row justify-content-center">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12 my-4">
-                                <!-- <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. At est delectus minus tempore quidem, natus earum suscipit autem magnam esse et blanditiis id, fuga molestiae voluptas quae eaque. Odio, corrupti.</p> -->
-                                <div class="card shadow">
-                                    <div class="card-body">
-                                        <div class="form-row">
-                                            <form class="form-inline">
-                                                <div class="form-row">
-                                                    <div class="mb-2">
-                                                        <form action="{{ route('public.index') }}" method="GET">
-                                                            <input type="text" class="form-control" name="search"
-                                                                placeholder="Search...">
-                                                            <button type="submit"
-                                                                class="btn btn-sm  btn-outline-primary"><span
-                                                                    class="fe fe-search fe-16 mr-2"></span>Search</button>
-                                                        </form>
-                                                    </div>
-
-
-                                                </div>
-                                            </form>
-
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr role="row">
-                                                        <th>#</th>
-                                                        <th>DM Number</th>
-                                                        <th>Subject</th>
-                                                        <th>User</th>
-                                                        <th>Category</th>
-                                                        <th>Date</th>
-                                                        <th>Status Doc</th>
-                                                        <th>Document</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($docs as $doc)
-                                                        @if ($doc->status->public_view == 1)
-                                                            <tr>
-                                                                <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $doc->dm_number }}</td>
-                                                                <td>{{ $doc->subject }}</td>
-                                                                <td>{{ $doc->user }}</td>
-                                                                <td>{{ $doc->category->name }}</td>
-                                                                <td>{{ $doc->tgldoc }}</td>
-                                                                <td><span
-                                                                        class="badge badge-success">{{ $doc->status->name }}</span>
-                                                                </td>
-                                                                <td>
-                                                                    @foreach ($doc->files as $file)
-                                                                        <a href="{{ asset('storage/attachments/' . $file->attachment_path) }}"
-                                                                            target="_blank">Unduh File</a>
-                                                                        <br>
-                                                                        <small>Last Updated:
-                                                                            {{ \Carbon\Carbon::parse($file->updated_at)->diffForHumans() }}</small>
-                                                                        <br>
-                                                                    @endforeach
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                        {{ $docs->links() }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </main>
-
-            <!-- General JS Scripts -->
-            <script src="{{ asset('js/jquery.min.js') }}"></script>
-            <script src="{{ asset('js/popper.min.js') }}"></script>
-            <script src="{{ asset('js/moment.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('js/simplebar.min.js') }}"></script>
-            <script src="{{ asset('js/daterangepicker.js') }}"></script>
-            <script src="{{ asset('js/jquery.stickOnScroll.js') }}"></script>
-            <script src="{{ asset('js/tinycolor-min.js') }}"></script>
-            <script src="{{ asset('js/config.js') }}"></script>
-            <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
-            <script src="{{ asset('js/select2.min.js') }}"></script>
-            <script src="{{ asset('js/jquery.timepicker.js') }}"></script>
-            <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-            <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
-            <script src="{{ asset('js/apps.js') }}"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-            </script>
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-
-                function gtag() {
-                    dataLayer.push(arguments);
-                }
-                gtag('js', new Date());
-                gtag('config', 'UA-56159088-1');
-            </script>
+<body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container text-center position-relative" style="z-index: 2;">
+            <h2 class="fw-bold mb-2 text-white">Unit Performance Monitoring</h2>
+            <p class="text-white-50 mt-1 mb-0 fs-5">Track, manage, and monitor your unit documents efficiently</p>
         </div>
     </div>
-    <footer class="footer">
-        <div class="container-fluid">
-            <p class="text-muted mb-0">Copyright &copy; 2024 <a href="https://nex-gen.id">Nexgen</a></p>
-        </div>
-    </footer>
+
+    <div class="container main-container">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-custom mb-4">
+            <div class="container-fluid">
+                <button class="navbar-toggler border-0 shadow-none text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->is('/') ? 'active fw-semibold' : '' }}" href="/">All Categories</a>
+                        </li>
+                        @foreach ($category as $item)
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->url() == route('public.showFilter', ['slug' => $item->slug]) ? 'active fw-semibold' : '' }}" href="{{ route('public.showFilter', ['slug' => $item->slug]) }}">{{ $item->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/docsMon') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-medium shadow-sm">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-medium shadow-sm">Log in</a>
+                            @endauth
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <div class="card-modern">
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <form action="{{ route('public.index') }}" method="GET" class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h5 class="mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+                            <i data-feather="file-text" class="text-primary"></i> Documents
+                        </h5>
+                        <div class="d-flex" style="min-width: 300px; max-width: 100%;">
+                            <input type="text" class="form-control search-input" name="search" placeholder="Search by DM Number, Subject..." value="{{ request('search') }}">
+                            <button type="submit" class="btn btn-primary btn-search shadow-sm">
+                                <i data-feather="search" style="width: 18px; height: 18px;"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-modern">
+                        <thead>
+                            <tr>
+                                <th width="5%">#</th>
+                                <th width="14%">DM Number</th>
+                                <th>Subject</th>
+                                <th width="15%">User</th>
+                                <th width="12%">Category</th>
+                                <th width="15%">Date</th>
+                                <th width="10%">Status</th>
+                                <th width="15%">Document</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($docs as $doc)
+                                @if ($doc->status->public_view == 1)
+                                    <tr>
+                                        <td><span class="text-muted fw-medium">{{ $loop->iteration }}</span></td>
+                                        <td><span class="fw-semibold text-dark">{{ $doc->dm_number }}</span></td>
+                                        <td>
+                                            <span class="fw-medium text-dark d-block">{{ $doc->subject }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="user-avatar">
+                                                    {{ strtoupper(substr($doc->user, 0, 1)) }}
+                                                </div>
+                                                <span class="fw-medium">{{ $doc->user }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-light text-secondary border px-2 py-1 rounded-pill">{{ $doc->category->name ?? '-' }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-1 text-muted">
+                                                <i data-feather="calendar" style="width: 14px; height: 14px;"></i>
+                                                {{ $doc->tgldoc ? \Carbon\Carbon::parse($doc->tgldoc)->format('d M Y') : '-' }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 badge-status">
+                                                {{ $doc->status->name ?? 'Active' }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @forelse ($doc->files as $file)
+                                                <div class="mb-2">
+                                                    <a href="{{ asset('storage/attachments/' . $file->attachment_path) }}" target="_blank" class="file-link">
+                                                        <i data-feather="download-cloud" style="width: 14px; height: 14px;"></i> Download
+                                                    </a>
+                                                    <div class="text-muted mt-1" style="font-size: 0.7rem;">
+                                                        Updated: {{ \Carbon\Carbon::parse($file->updated_at)->diffForHumans() }}
+                                                    </div>
+                                                </div>
+                                            @empty
+                                                <span class="text-muted small">-</span>
+                                            @endforelse
+                                        </td>
+                                    </tr>
+                                @endif
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center py-5">
+                                        <div class="text-muted mb-3 d-flex justify-content-center">
+                                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                                <i data-feather="inbox" style="width: 40px; height: 40px; color: #9ca3af;"></i>
+                                            </div>
+                                        </div>
+                                        <h5 class="fw-bold text-dark">No documents found</h5>
+                                        <p class="text-muted mb-0">Try adjusting your search criteria or check back later.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                @if(isset($docs) && $docs->hasPages())
+                <div class="pagination-container d-flex justify-content-center">
+                    {{ $docs->appends(request()->query())->links() }}
+                </div>
+                @endif
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="mb-0">Copyright &copy; {{ date('Y') }} <a href="https://nexgen.id" class="text-decoration-none fw-medium text-primary">Nexgen</a>. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        });
+    </script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-56159088-1');
+    </script>
 </body>
 </html>

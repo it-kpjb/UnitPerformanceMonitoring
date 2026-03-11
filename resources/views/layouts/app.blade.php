@@ -28,7 +28,7 @@
                     <!-- <i class="fe fe-menu navbar-toggler-icon"></i> -->
                 </button>
                 
-                <ul class="nav">
+                <!-- <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="light">
                             <i class="fe fe-sun fe-16"></i>
@@ -50,7 +50,7 @@
                             </div>
                         @endif
                     </li>
-                </ul>
+                </ul> -->
             </nav>
 
         
