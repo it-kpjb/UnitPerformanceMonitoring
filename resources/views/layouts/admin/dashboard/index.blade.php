@@ -7,7 +7,11 @@
             
             <div class="row align-items-center mb-4">
                 <div class="col">
-                    <h2 class="h3 mb-0 text-gray-800 font-weight-bold">Welcome, {{ Auth::user()->name }}</h2>
+                    @php
+                        /** @var \App\Models\User $user */
+                        $user = Auth::user();
+                    @endphp
+                    <h2 class="h3 mb-0 text-gray-800 font-weight-bold">Welcome, {{ $user->name }}</h2>
                     <p class="text-muted mb-0">Here's what's happening with your documents today.</p>
                 </div>
                 <div class="col-auto">
