@@ -15,7 +15,7 @@
         <li class="nav-item dropdown ml-3">
             <a class="nav-link dropdown-toggle text-muted pr-0 d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="gap: 12px; cursor: pointer;">
                 <div class="d-none d-md-flex flex-column text-right mr-1">
-                    <span class="text-dark font-weight-bold" style="font-size: 0.85rem; line-height: 1.2;">{{ Auth::user()->name ?? 'Administrator' }}</span>
+                    <span class="text-dark font-weight-bold" style="font-size: 0.85rem; line-height: 1.2;">{{ Auth::user()?->name ?? 'Administrator' }}</span>
                     <span class="text-muted" style="font-size: 0.75rem;">Admin</span>
                 </div>
                 <span class="avatar avatar-sm">
@@ -26,8 +26,8 @@
             <!-- Dropdown Menu -->
             <div class="dropdown-menu dropdown-menu-right shadow border-0" aria-labelledby="navbarDropdownMenuLink" style="border-radius: 0.75rem; overflow: hidden; min-width: 220px; top: 120%;">
                 <div class="px-4 py-3 bg-light border-bottom">
-                    <p class="mb-0 text-dark font-weight-bold text-truncate">{{ Auth::user()->name ?? 'Administrator' }}</p>
-                    <small class="text-muted text-truncate d-block">{{ Auth::user()->email ?? 'admin@example.com' }}</small>
+                    <p class="mb-0 text-dark font-weight-bold text-truncate">{{ Auth::user()?->name ?? 'Administrator' }}</p>
+                    <small class="text-muted text-truncate d-block">{{ Auth::user()?->email ?? 'admin@example.com' }}</small>
                 </div>
                 <a class="dropdown-item py-2 mt-1 d-flex align-items-center text-secondary" href="#">
                     <i class="fe fe-user mr-3"></i> My Profile
