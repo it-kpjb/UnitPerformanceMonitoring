@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,15 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated($request, $user)
+    {
+            // If user has no role, redirect to logout (or profile/setup page)
+        if ($user->roles->isEmpty()) {
+            Auth::logout();
+            return redirect()->route('login')
+                ->with('error', 'Akun Anda belum memiliki role. Silahkan hubungi Administrator.');
+        }
     }
 }
