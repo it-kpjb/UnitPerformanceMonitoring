@@ -22,14 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
-
-        // Force HTTPS when running behind a proxy/ngrok/reverse proxy.
-        // TrustProxies middleware ensures $_SERVER['HTTPS'] is set correctly.
-        if (
-            config('app.env') === 'production'
-            || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
-            || (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        ) {
+        if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
     }

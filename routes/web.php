@@ -36,7 +36,6 @@ Auth::routes();
 // Google SSO Routes
 Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
-Route::get('/auth/logout', [SocialAuthController::class, 'logout'])->name('auth.logout');
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 
