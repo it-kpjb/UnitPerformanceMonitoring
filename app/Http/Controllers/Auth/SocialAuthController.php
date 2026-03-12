@@ -49,8 +49,9 @@ class SocialAuthController extends Controller
             }
         }
 
-        // Log the user in
+        // Log the user in and regenerate session to fix CSRF/logout issues
         Auth::login($user, true);
+        session()->regenerate();
 
         return redirect('/home');
     }
