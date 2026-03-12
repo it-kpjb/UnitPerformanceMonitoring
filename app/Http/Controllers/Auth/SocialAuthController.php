@@ -55,4 +55,16 @@ class SocialAuthController extends Controller
 
         return redirect('/home');
     }
+
+    /**
+     * Log the user out via GET (avoids 419 CSRF issues).
+     */
+    public function logout()
+    {
+        Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
+
+        return redirect()->route('login');
+    }
 }

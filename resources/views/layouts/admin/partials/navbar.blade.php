@@ -36,12 +36,9 @@
                     <i class="fe fe-settings mr-3"></i> Account Settings
                 </a>         
                 <div class="dropdown-divider my-1"></div>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="dropdown-item py-2 text-danger d-flex align-items-center mb-1">
-                        <i class="fe fe-log-out mr-3"></i> Sign Out
-                    </button>
-                </form>
+                <a href="{{ route('auth.logout') }}" class="dropdown-item py-2 text-danger d-flex align-items-center mb-1">
+                    <i class="fe fe-log-out mr-3"></i> Sign Out
+                </a>
             </div>
         </li>
     </ul>
