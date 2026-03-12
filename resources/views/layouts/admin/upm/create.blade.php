@@ -22,7 +22,8 @@
                     </div>
                     <div class="col-md-6 form-group mb-4">
                         <label for="user" class="font-weight-bold text-secondary" style="font-size: 0.85rem;">User <span class="text-danger">*</span></label>
-                        <input type="text" id="user" name="user" class="form-control" style="border-radius: 0.5rem; border: 1px solid #e5e7eb; padding: 0.5rem 1rem;" placeholder="Enter user name" required>
+                        @php /** @var \App\Models\User $authUser */ $authUser = Auth::user(); @endphp
+                        <input type="text" id="user" name="user" class="form-control bg-light" style="border-radius: 0.5rem; border: 1px solid #e5e7eb; padding: 0.5rem 1rem;" value="{{ $authUser->name }}" readonly required>
                     </div>
                 </div>
 

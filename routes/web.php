@@ -12,6 +12,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentFilController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -31,6 +32,10 @@ Route::get('/document/filter/{slug}', [PublicDocsMonController::class, 'showFilt
 
 
 Auth::routes();
+
+// Google SSO Routes
+Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 
