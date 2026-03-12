@@ -154,6 +154,69 @@
         font-size: 0.9rem;
         box-shadow: 0 4px 6px rgba(220, 38, 38, 0.05);
     }
+
+    .divider-text {
+        display: flex;
+        align-items: center;
+        color: #9ca3af;
+        font-size: 0.85rem;
+        margin: 1.25rem 0;
+    }
+
+    .divider-text::before,
+    .divider-text::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e5e7eb;
+    }
+
+    .divider-text span {
+        padding: 0 0.75rem;
+    }
+
+    .btn-google {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.625rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 0.75rem;
+        border: 1.5px solid #e5e7eb;
+        background: #ffffff;
+        color: #374151;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.25s ease;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        text-decoration: none;
+    }
+
+    .btn-google:hover {
+        background: #f9fafb;
+        border-color: #9ca3af;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        color: #1f2937;
+        transform: translateY(-1px);
+        text-decoration: none;
+    }
+
+    .login-register-link {
+        text-align: center;
+        font-size: 0.875rem;
+        color: #6b7280;
+        margin-top: 1.25rem;
+    }
+
+    .login-register-link a {
+        color: #0d6efd;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .login-register-link a:hover {
+        text-decoration: underline;
+    }
 </style>
 
 <div class="login-container">
@@ -193,6 +256,20 @@
                 </div>
             @endif
 
+            {{-- Google SSO Button --}}
+            <a href="{{ route('auth.google') }}" class="btn-google w-100 mb-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    <path fill="none" d="M0 0h48v48H0z"/>
+                </svg>
+                Continue with Google
+            </a>
+
+            <div class="divider-text"><span>or sign in with email</span></div>
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-4">
@@ -220,7 +297,11 @@
                 <button type="submit" class="btn btn-login btn-primary w-100 text-white mt-2">
                     Sign In
                 </button>
-                
+
+                <div class="login-register-link">
+                    Don't have an account? <a href="{{ route('register') }}">Register here</a>
+                </div>
+
                 <div class="login-footer">
                     <p class="mb-0">Protected by <a href="https://nexgen.id" class="text-decoration-none fw-medium" style="color: #6b7280;">Nexgen</a> &copy; {{ date('Y') }}</p>
                 </div>
